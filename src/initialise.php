@@ -18,9 +18,6 @@ class initialise
         # Create the CPT for the FFMPEG configs
         new acf\acf_cpt_configs();
 
-        # Create the options page on admin under postplanpro
-        new acf\acf_options_page();
-
         # Run the webhook to github on update
         new acf\acf_on_update_config();
 

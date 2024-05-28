@@ -109,7 +109,7 @@ class acf_on_update_config
      */
     private function get_github_settings()
     {
-        $this->github_token = get_field('github_token', 'option');
+        $this->github_token = get_field('pppff_github_token', $this->post_id);
         if ($this->github_token == ""){ 
             error_log( 'Error: Github Action Token not set. Exiting.' );
             return false;
@@ -165,16 +165,10 @@ class acf_on_update_config
 
         if ( function_exists( 'get_fields' ) ) {
             $acf_fields = get_fields( $this->post_id );
-            if ( $acf_fields['pppff_control_config'] ) {
-                $this->payload['client_payload'] = [
-                    'pppff_control_config_b64'           => base64_encode($acf_fields['pppff_control_config']),
-                    'pppff_repeats'                     => $acf_fields['pppff_repeats'],
-                    'pppff_release_rest_api_url'        => $acf_fields['pppff_release_rest_api_url'],
-                    'pppff_release_rest_api_token'      => $acf_fields['pppff_release_rest_api_token'],
-                    'pppff_release_schedule'            => $acf_fields['pppff_release_schedule'],
-                    'pppff_google_drive_output_folder'  => $acf_fields['pppff_google_drive_output_folder']
-                ];
-            }
+            $this->payload['client_payload'] = $acf_fields;
+
+            # Base64 Encode because of cleartext
+            $this->payload['client_payload']['pppff_control_config_b64'] = base64_encode($acf_fields['pppff_control_config']);
         }
 
         // JSON encode the payload
