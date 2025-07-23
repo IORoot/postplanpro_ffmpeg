@@ -1,3 +1,6 @@
+![header](https://raw.githubusercontent.com/IORoot/postplanpro_ffmpeg/refs/heads/master/header.jpg)
+
+
 # PostPlanPro
 
 This plugin is used to schedule posts / media to social platforms.
